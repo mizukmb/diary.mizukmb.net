@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx parcel --hmr-port 5050 --hmr-hostname localhost ./index.html",
-    "prod": "npx parcel build --public-url http://static.diary.mizukmb.net",
+    "prod": "npx parcel build --public-url http://static.diary.mizukmb.net ./index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
