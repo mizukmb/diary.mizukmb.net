@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  frontend:
+    build: ./src/frontend
+    ports:
+      - '1234:1234'
+      - '5050:5050'
+    environment:
+      BACKEND_HOST: localhost
+      BACKEND_PORT: 8080
+    depends_on:
+      - backend
+    volumes:
+      - ./src/frontend:/node/app
+  backend:
+    build: ./src/backend
+    ports:
+      - '8080:80'
+    environment:
+      BACKEND_HOST: '0.0.0.0'
+      BACKEND_PORT: 80
