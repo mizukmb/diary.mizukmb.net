@@ -1,8 +1,11 @@
 FROM node:13
 
+ARG NPM_RUN_COMMAND=dev
+ENV NRC $NPM_RUN_COMMAND
+
 WORKDIR /node/app
 COPY . .
 
 RUN ["npm", "install"]
 
-CMD ["npx", "parcel", "--hmr-port", "5050", "--hmr-hostname", "localhost", "./index.html"]
+CMD ["sh", "-c", "npm run $NRC"]

@@ -23,6 +23,7 @@ jobs:
         env:
           BACKEND_HOST: localhost
           BACKEND_PORT: 8080
+          NPM_RUN_COMMAND: prod
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: mizukmb/diary.mizukmb.net/frontend
@@ -30,3 +31,4 @@ jobs:
           password: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
           registry: docker.pkg.github.com
           workdir: src/frontend
+          buildargs: NPM_RUN_COMMAND
