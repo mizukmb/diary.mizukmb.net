@@ -1,11 +1,9 @@
-FROM golang:alpine
+FROM golang:1.13.4-alpine
 
-WORKDIR /go/src/app
+WORKDIR /backend
 
-COPY . .
+COPY . /backend
 
-RUN ["go", "build", "-o", "app"]
+RUN ["go", "build", "-o", "backend"]
 
-EXPOSE 80
-
-CMD ["./app"]
+CMD ["/backend/backend"]

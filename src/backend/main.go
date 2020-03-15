@@ -16,8 +16,8 @@ import (
 )
 
 type Content struct {
-	Title string `json:"title"`
-	Body  string `json:"body"`
+	Title []byte `json:"title"`
+	Body  []byte `json:"body"`
 }
 
 func parseBlogContent(content []byte) ([][]byte, error) {
@@ -76,8 +76,8 @@ func main() {
 			return
 		}
 
-		title := string(c[0])
-		html := string(blackfriday.Run(c[1]))
+		title := c[0]
+		html := blackfriday.Run(c[1])
 		j, err := json.Marshal(Content{title, html})
 		if err != nil {
 

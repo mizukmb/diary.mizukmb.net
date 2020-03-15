@@ -8,6 +8,7 @@ import {
     Link
 } from 'react-router-dom';
 import { Articles } from './routes/articles';
+import { Header } from './components/header';
 
 const TitleList = () => {
     const [contents, setContents] = useState([]);
@@ -41,6 +42,7 @@ const TitleList = () => {
 const Index = () => {
     return (
         <Router>
+            <Header />
             <Switch>
                 <Route path="/articles/:articleName">
                     <Articles />

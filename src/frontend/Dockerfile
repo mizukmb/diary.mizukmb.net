@@ -1,11 +1,29 @@
-FROM node:13
+FROM node:13-alpine AS FRONTEND
 
 ARG NPM_RUN_COMMAND=dev
+ARG BACKEND_HOST=localhost
+ARG BACKEND_PORT='8000'
 ENV NRC $NPM_RUN_COMMAND
+ENV BACKEND_HOST $BACKEND_HOST
+ENV BACKEND_PORT $BACKEND_PORT
 
-WORKDIR /node/app
-COPY . .
+WORKDIR /node
+COPY package.json package-lock.json ./
 
 RUN ["npm", "install"]
 
-CMD ["sh", "-c", "npm run $NRC"]
+COPY . .
+
+RUN ["sh", "-c", "npm run $NRC"]
+
+
+
+FROM nginx:1.17-alpine
+
+WORKDIR /app
+EXPOSE 80
+
+COPY --from=FRONTEND /node/dist /app/dist
+COPY ./nginx/conf.d/development.conf /etc/nginx/conf.d/default.conf
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]

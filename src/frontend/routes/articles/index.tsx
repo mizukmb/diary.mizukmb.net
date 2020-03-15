@@ -25,8 +25,8 @@ export const Articles = () => {
                 .then(response => response.text())
                 .then(text => {
                     const json = JSON.parse(text);
-                    setTitle(json.title);
-                    setContent(json.body);
+                    setTitle(b64_to_utf8(json.title));
+                    setContent(b64_to_utf8(json.body));
                 });
     }, []);
 
@@ -36,4 +36,9 @@ export const Articles = () => {
             <Body dangerouslySetInnerHTML={{__html: parsedContent}}></Body>
         </div>
     );
+}
+
+// https://developer.mozilla.org/ja/docs/Web/API/WindowBase64/btoa#Unicode_Strings
+const b64_to_utf8 = (str: string) => {
+    return decodeURIComponent(escape(window.atob(str)));
 }
