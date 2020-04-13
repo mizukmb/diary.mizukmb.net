@@ -87,8 +87,16 @@ func main() {
 		w.Write(j)
 	})
 
-	host := os.Getenv("BACKEND_HOST")
-	port := os.Getenv("BACKEND_PORT")
+	host, ok := os.LookupEnv("APP_HOST")
+	if !ok {
+		host = "0.0.0.0"
+	}
+
+	port, ok := os.LookupEnv("APP_PORT")
+	if !ok {
+		port = "8000"
+	}
+
 	srv := &http.Server{
 		Handler:      r,
 		Addr:         host + ":" + port,

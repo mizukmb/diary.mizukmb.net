@@ -9,9 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: backend
-        env:
-          BACKEND_HOST: '0.0.0.0'
-          BACKEND_PORT: 80
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: mizukmb/diary.mizukmb.net/backend
