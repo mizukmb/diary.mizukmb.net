@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diary-deployment
+  labels:
+    app: diary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: diary
+  template:
+    metadata:
+      labels:
+        app: diary
+    spec:
+      containers:
+      - name: backend
+        image: docker.pkg.github.com/mizukmb/diary.mizukmb.net/backend:latest
+        ports:
+        - containerPort: 8000
+      - name: frontend
+        image: docker.pkg.github.com/mizukmb/diary.mizukmb.net/frontend:latest
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: github
