@@ -12,11 +12,12 @@ import { Header } from './components/header';
 
 const TitleList = () => {
     const [contents, setContents] = useState([]);
+    const protocol = process.env.BACKEND_PROTOCOL;
     const host = process.env.BACKEND_HOST;
     const port = process.env.BACKEND_PORT;
 
     useEffect(() => {
-        fetch(`http://${host}:${port}/`)
+        fetch(`${protocol}://${host}:${port}/`)
                 .then(response => response.text())
                 .then(text => {
                     const json = JSON.parse(text);

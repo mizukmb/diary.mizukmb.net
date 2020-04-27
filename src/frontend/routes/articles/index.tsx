@@ -19,9 +19,10 @@ export const Articles = () => {
     const parsedContent = domparser.parseFromString(content, 'text/html').body.innerHTML;
 
     useEffect(() => {
+        const protocol = process.env.BACKEND_PROTOCOL;
         const host = process.env.BACKEND_HOST;
         const port = process.env.BACKEND_PORT;
-        fetch(`http://${host}:${port}/articles/${articleName}`)
+        fetch(`${protocol}://${host}:${port}/articles/${articleName}`)
                 .then(response => response.text())
                 .then(text => {
                     const json = JSON.parse(text);

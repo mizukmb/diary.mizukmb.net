@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx parcel build --public-url http://localhost:3000 ./index.html",
-    "prod": "npx parcel build --public-url http://diary.mizukmb.net ./index.html",
+    "prod": "npx parcel build --public-url https://diary.mizukmb.net ./index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
