@@ -7,12 +7,16 @@ const Title = styled.h1`
 font-size: 2.5em;
 text-align: center;
 `
+const Date = styled.div`
+text-align: center;
+`
 const Body = styled.div`
 margin: 10px 200px;
 `
 
 export const Articles = () => {
     const [title, setTitle] = useState('');
+    const [date, setDate] = useState('');
     const [content, setContent] = useState('');
     const {articleName} = useParams();
     const domparser = new DOMParser();
@@ -27,6 +31,7 @@ export const Articles = () => {
                 .then(text => {
                     const json = JSON.parse(text);
                     setTitle(b64_to_utf8(json.title));
+                    setDate(b64_to_utf8(json.date));
                     setContent(b64_to_utf8(json.body));
                 });
     }, []);
@@ -34,6 +39,7 @@ export const Articles = () => {
     return (
         <div>  
             <Title>{title}</Title>
+            <Date>{date}</Date>
             <Body dangerouslySetInnerHTML={{__html: parsedContent}}></Body>
         </div>
     );

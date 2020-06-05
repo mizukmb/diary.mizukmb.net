@@ -17,15 +17,16 @@ import (
 
 type Content struct {
 	Title []byte `json:"title"`
+	Date  []byte `json:"date"`
 	Body  []byte `json:"body"`
 }
 
 func parseBlogContent(content []byte) ([][]byte, error) {
-	r := regexp.MustCompile(`(?s)^\+\+\+\ntitle[ ]*=[ ]*"(.*)"\n\+\+\+\n(.*)`)
+	r := regexp.MustCompile(`(?s)^\+\+\+\ntitle[ ]*=[ ]*"(.*)"\ndate[ ]*=[ ]*"(.*)"\n\+\+\+\n(.*)`)
 	b := r.FindSubmatch(content)
 
-	if len(b) == 3 {
-		return [][]byte{b[1], b[2]}, nil
+	if len(b) == 4 {
+		return [][]byte{b[1], b[2], b[3]}, nil
 	} else {
 		return nil, fmt.Errorf("Parse Error")
 	}
@@ -77,8 +78,9 @@ func main() {
 		}
 
 		title := c[0]
-		html := blackfriday.Run(c[1])
-		j, err := json.Marshal(Content{title, html})
+		date := c[1]
+		html := blackfriday.Run(c[2])
+		j, err := json.Marshal(Content{title, date, html})
 		if err != nil {
 
 		}
